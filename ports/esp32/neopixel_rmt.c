@@ -7,9 +7,6 @@
  * Ported to micropython.
  * Copyright (c) 2020 Carsten B. L. Tschense
  * 
- * /
-
-/*
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -43,7 +40,7 @@
 
 // Configure these based on your project needs ********
 #define LED_RMT_TX_CHANNEL RMT_CHANNEL_0
-#define LED_RMT_TX_GPIO 4
+#define LED_RMT_TX_GPIO 26
 // ****************************************************
 
 #define BITS_PER_LED_CMD 24 
