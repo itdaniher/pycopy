@@ -148,7 +148,7 @@ void pixel_init(void)
 
 void pixel_deinit(void) {
     xSemaphoreTake(gTX_sem, portMAX_DELAY);
-    ESP_ERROR_CHECK(esp_intr_free(&gRMT_intr_handle));
+    ESP_ERROR_CHECK(esp_intr_free(gRMT_intr_handle));
     xSemaphoreGive(gTX_sem);
 }
 
