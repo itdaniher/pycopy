@@ -155,10 +155,16 @@ void pixel_init(void)
 
 void pixel_deinit(void) {
     if ( gInitialized == true ) {
+	    // wait for the semaphore to manipulate state
           xSemaphoreTake(gTX_sem, portMAX_DELAY);
+	  // disable threshold interupt
 	  ESP_ERROR_CHECK(rmt_set_tx_thr_intr_en(LED_RMT_TX_CHANNEL, false, PULSES_PER_FILL));
-	  ESP_ERROR_CHECK(esp_intr_free(gRMT_intr_handle));
+	  // disable tx interrupt handler
 	  ESP_ERROR_CHECK(rmt_set_tx_intr_en(LED_RMT_TX_CHANNEL, false));
+	  // free interrupt handler
+	  ESP_ERROR_CHECK(esp_intr_free(gRMT_intr_handle));
+	  // null out interrupt handler, mark uninited, release semaphore
+	  gRMT_intr_handle = NULL;
 	  gInitialized = false;
           xSemaphoreGive(gTX_sem);
     }
