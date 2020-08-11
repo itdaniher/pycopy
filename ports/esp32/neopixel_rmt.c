@@ -128,13 +128,6 @@ void pixel_init(void)
   gOnChannel[0].pin = LED_RMT_TX_GPIO;
   gOnChannel[0].curPixel = 0;
   gOnChannel[0].channel = LED_RMT_TX_CHANNEL;
-  gOnChannel[1].enabled = false;
-  gOnChannel[2].enabled = false;
-  gOnChannel[3].enabled = false;
-  gOnChannel[4].enabled = false;
-  gOnChannel[5].enabled = false;
-  gOnChannel[6].enabled = false;
-  gOnChannel[7].enabled = false;
 
   gNumControllers = 1;
 
