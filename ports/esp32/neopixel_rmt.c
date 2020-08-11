@@ -39,7 +39,7 @@
 
 
 // Configure these based on your project needs ********
-#define LED_RMT_TX_CHANNEL RMT_CHANNEL_0
+#define LED_RMT_TX_CHANNEL RMT_CHANNEL_7
 #define LED_RMT_TX_GPIO 26
 // ****************************************************
 
@@ -70,7 +70,7 @@
 // -- Number of RMT channels to use (up to 8)
 //    Redefine this value to 1 to force serial output
 #ifndef FASTLED_RMT_MAX_CHANNELS
-#define FASTLED_RMT_MAX_CHANNELS 8
+#define FASTLED_RMT_MAX_CHANNELS 1
 #endif
 
 static xSemaphoreHandle gTX_sem = NULL;
@@ -153,6 +153,12 @@ void pixel_init(void)
     gInitialized = true;
 }
 
+void pixel_deinit(void) {
+    xSemaphoreTake(gTX_sem, portMAX_DELAY);
+    ESP_ERROR_CHECK(esp_intr_free(&gRMT_intr_handle));
+    xSemaphoreGive(gTX_sem);
+}
+
 static void IRAM_ATTR interruptHandler(void *arg)
 {
     // -- The basic structure of this code is borrowed from the
@@ -170,7 +176,6 @@ static void IRAM_ATTR interruptHandler(void *arg)
             // -- More to send on this channel
             if (intr_st & BIT(tx_next_bit)) {
                 RMT.int_clr.val |= BIT(tx_next_bit);
-                
                 // -- Refill the half of the buffer that we just finished,
                 //    allowing the other half to proceed.
                 fillNext(channel);

@@ -1,13 +1,13 @@
 # NeoPixel driver for MicroPython on ESP32 with the neopixel_rmt driver
 # MIT license;
-# 
+#
 # Based on original neopixel driver by
 # Copyright (c) 2016 Damien P. George
 #
 # With stolen bits and pieces by nevercast
 # https://gist.github.com/nevercast/9c48505cc6c5687af59bcb4a22062795
 
-from neopixel_rmt import write
+from neopixel_rmt import write, init, deinit
 
 class NeoPixel:
     def __init__(self, pin, n):
@@ -15,6 +15,7 @@ class NeoPixel:
         self.bpp = 3
         self.pin = pin
         self.buf = bytearray(n * 3)
+        init()
 
     def __setitem__(self, index, val):
         if isinstance(index, int):
@@ -59,3 +60,6 @@ class NeoPixel:
 
     def write(self):
         write(self.buf)
+
+    def deinit(self):
+        deinit()
