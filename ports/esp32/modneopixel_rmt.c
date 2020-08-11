@@ -26,14 +26,12 @@ STATIC mp_obj_t init() {
 
     return mp_const_none;
 }
-
+STATIC MP_DEFINE_CONST_FUN_OBJ_0(init_obj, init);
 STATIC mp_obj_t deinit() {
     pixel_deinit();
 
     return mp_const_none;
 }
-
-STATIC MP_DEFINE_CONST_FUN_OBJ_0(init_obj, init);
 STATIC MP_DEFINE_CONST_FUN_OBJ_0(deinit_obj, deinit);
 
 STATIC mp_obj_t write(mp_obj_t buf) {
@@ -44,7 +42,6 @@ STATIC mp_obj_t write(mp_obj_t buf) {
 
     return mp_const_none;
 }
-
 STATIC MP_DEFINE_CONST_FUN_OBJ_1(write_obj, write);
 
 
@@ -61,5 +58,4 @@ const mp_obj_module_t neopixel_rmt_module = {
     .base = { &mp_type_module },
     .globals = (void*)&mp_module_neopixel_rmt_globals,
 };
-
 MP_REGISTER_MODULE(MP_QSTR_neopixel_rmt, neopixel_rmt_module, NEOPIXEL_RMT_ENABLED);
